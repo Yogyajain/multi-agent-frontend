@@ -19,7 +19,7 @@ export default function SQLQueryInterface() {
     setResult(null); // Clear previous results
 
     try {
-      const response = await fetch(`http://localhost:8000/generate?query=${encodeURIComponent(query)}`, {
+      const response = await fetch(`https://multi-agent-system-rqvh.onrender.com/api/generate?query=${encodeURIComponent(query)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
