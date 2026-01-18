@@ -19,7 +19,7 @@ export default function SQLQueryInterface() {
     setResult(null); // Clear previous results
 
      const controller = new AbortController();
-     const timeoutId = setTimeout(() => controller.abort(), 20000); // 2 minutes
+     const timeoutId = setTimeout(() => controller.abort(), 600000); // 2 minutes
 
 
     try {
