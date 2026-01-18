@@ -18,14 +18,19 @@ export default function SQLQueryInterface() {
     setError(null);
     setResult(null); // Clear previous results
 
+     const controller = new AbortController();
+     const timeoutId = setTimeout(() => controller.abort(), 12000); // 2 minutes
+
+
     try {
       const response = await fetch(`https://multi-agent-system-rqvh.onrender.com/api/generate?query=${encodeURIComponent(query)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
+        signal: controller.signal 
       });
-      
+      clearTimeout(timeoutId);
       const res = await response.json();
       console.log('Backend full response:', res);
       console.log('SQL data:', res.data);
@@ -39,7 +44,11 @@ export default function SQLQueryInterface() {
       console.log('Result set to:', res.data);
     } catch (err) {
       console.error('Error:', err);
-      setError(err.message);
+       if (err.name === 'AbortError') {
+    setError('Request timed out. Please try again.');
+  } else {
+    setError(err.message || 'Failed to generate SQL query');
+  }
     } finally {
       setLoading(false);
     }
