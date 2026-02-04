@@ -21,9 +21,10 @@ export default function SQLQueryInterface() {
      const controller = new AbortController();
      const timeoutId = setTimeout(() => controller.abort(), 600000); // 2 minutes
 
-
+    const BACKEND_URL = 'https://assistant-2met.onrender.com/';
+    const LOCAL_URL = 'http://localhost:8000';
     try {
-      const response = await fetch(`https://multi-agent-system-rqvh.onrender.com/api/generate?query=${encodeURIComponent(query)}`, {
+      const response = await fetch(`${BACKEND_URL}/api/generate?query=${encodeURIComponent(query)}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +78,7 @@ export default function SQLQueryInterface() {
       <header className="p-6">
         <div className="max-w-4xl mx-auto flex items-center gap-3">
           <Database className="w-8 h-8 text-slate-700" />
-          <h1 className="text-2xl font-semibold text-slate-800">NL to SQL</h1>
+          <h1 className="text-2xl font-semibold text-slate-800">Mini RAG Assistant</h1>
         </div>
       </header>
 
@@ -113,7 +114,7 @@ export default function SQLQueryInterface() {
           {loading && (
             <div className="mt-8 flex items-center justify-center gap-3 text-slate-600">
               <Loader2 className="w-5 h-5 animate-spin" />
-              <span>Generating SQL query...</span>
+              <span>Generating the response</span>
             </div>
           )}
 
@@ -131,7 +132,7 @@ export default function SQLQueryInterface() {
               {/* Generated SQL */}
               <div className="bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden">
                 <div className="px-6 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                  <p className="text-sm font-semibold text-slate-700">Generated SQL Query</p>
+                  <p className="text-sm font-semibold text-slate-700">Generated response</p>
                   <button
                     onClick={handleCopy}
                     className="flex items-center gap-2 px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -163,7 +164,7 @@ export default function SQLQueryInterface() {
 
       {/* Footer */}
       <footer className="p-6 text-center text-sm text-slate-500">
-        Powered by Multi-Agent SQL System
+        Powered by NaagShakti
       </footer>
     </div>
   );
